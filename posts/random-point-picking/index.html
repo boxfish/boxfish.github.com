@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+                <title>Bo Yu</title>
+        <meta charset="utf-8" />
+                <link href="http://yubo.info/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bo Yu Full Atom Feed" />
+                                                <link href="http://yubo.info/feeds/algorithm.atom.xml" type="application/atom+xml" rel="alternate" title="Bo Yu Categories Atom Feed" />
+                                        
+       <link rel="stylesheet" type="text/css" href="http://yubo.info/theme/css/style.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://yubo.info">Bo Yu <strong></strong></a></h1>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+                                      <li><a href="http://yubo.info/about/">About</a></li>
+                          </ul></nav><!-- /#menu -->
+        <section id="content" class="body">
+  <header>
+    <h2 class="entry-title">
+      <a href="http://yubo.info/posts/random-point-picking/" rel="bookmark"
+         title="Permalink to Random point picking inside an arbitrary polygon">Random point picking inside an arbitrary&nbsp;polygon</a></h2>
+  
+  </header>
+  <footer class="post-info">
+    <abbr class="published" title="2012-03-24T16:30:00">
+      Sat 24 March 2012
+    </abbr>
+        <address class="vcard author">
+      By <a class="url fn" href="http://yubo.info/author/bo-yu/">Bo Yu</a>
+    </address>
+      </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>I come across the problem of randomly generating geographic locations (as points) inside a certain area (as polygons) for a simulation project. A simple solution is to generate and test random points until one is inside the polygon, which is really unpredictable of the time it takes. The solution here is based on <a href="http://stackoverflow.com/questions/240778/random-points-inside-a-polygon">a post on Stack Overflow</a>, aiming to generate a point from a uniform distribution within an arbitrary (convex) polygon. This is achieved in a few&nbsp;steps:</p>
+<h1>Step&nbsp;1</h1>
+<p><a href="http://en.wikipedia.org/wiki/Polygon_triangulation">Triangulate the polygon</a> i.e. find the set of triangles with pairwise non-intersecting interiors whose union is the whole polygon. An easy-to-use open source library (poly2tri) for doing polygon triangulation can be found at <a href="http://code.google.com/p/poly2tri/">here</a>. It follows the sweep-line algorithm for constrained Delaunay&nbsp;triangulation.</p>
+<p><img alt="Polygon triangulation" src="http://www.geom.uiuc.edu/~samuelp/final_delaunay.gif" /></p>
+<h1>Step&nbsp;2</h1>
+<p _="%" endcodeblock="endcodeblock">Pick one of the triangles randomly. The probability of a triangle getting picked equals to the area ratio between each triangle and the whole polygon. Each triangle is stored as a two-element tuple: the first element stores the coordinates, and the second is the area ratio as the weight. Then the randomly picking a triangle can be done by calling the following <code>pick_triangle</code>function.
+    {% codeblock Pick triangles randomly lang:python %}
+    import random
+    def pick_triangle(triangles):
+        p = random.uniform(0.0, 1.0)
+        for triangle, weight in triangles:
+            if p &lt; weight:
+                break
+            p = p - weight
+        return&nbsp;triangle</p>
+<h1>Step&nbsp;3</h1>
+<p>Randomly pick a point inside the chosen triangle, following <a href="http://mathworld.wolfram.com/TrianglePointPicking.html">the description on Mathworld</a>. Let <code>v0</code>, <code>v1</code>, <code>v2</code> be vertices of the triangle, represented by their coordinates, so that <code>v0 = (x0,y0)</code>, etc. Then we generate two random numbers <code>p0</code> and <code>p1</code>, both drawn uniformly from the interval <code>[0,1]</code>. Then we calculate the coordinate of the random point <code>v</code> by <code>v = v0 + p0*(v1-v0) + p1*(v2-v0)</code>. <br /> Note that with probability of <code>0.5</code>, <code>v</code> lies outside the triangle. Whether <code>v</code> lies inside or outside the triangle can be easily tested: if <code>p0 + p1 &gt; 1</code>, then <code>v</code> is outside the triangle (See the discussion <a href="http://www.blackpawn.com/texts/pointinpoly/default.html">here</a>). In that case, we can generate a new point <code>v'</code> by <code>v' = v0 + (1-p0)*(v1-v0) + (1-p1)*(v2-v0)</code>, which will be inside the&nbsp;triangle.</p>
+  </div><!-- /.entry-content -->
+</section>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+        </footer><!-- /#contentinfo -->
+</body>
+</html>

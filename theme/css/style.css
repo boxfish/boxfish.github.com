@@ -131,11 +131,11 @@ body.color-2 div#top-nav #fixed-nav li a:hover {
 body.color-2 div#top-nav #fixed-nav li.current a {
 	border-bottom: 3px solid #3498db;
 }
-body.color-2 .recent-articles .entry-title a{
+body.color-2 .entry-list .entry-title a{
 	color: #333;
 	border-bottom: 0px;
 }
-body.color-2 .recent-articles .entry-title a:hover {
+body.color-2 .entry-list .entry-title a:hover {
 	color: #3498db;
 	border-bottom: 0px;
 }
@@ -359,11 +359,8 @@ div#top-nav #fixed-nav li.current a {
 	border-bottom: 1px solid #e1e1e1;
 	display: inline-block;
 	width: 100%;
-	margin-top: 50px;
-	height: 150px;
-}
-.home .hero{
 	margin-top: 0px;
+	height: 50px;
 }
 /* Backgrounds ------------------------------------------ */
 .bg-fixed {
@@ -467,9 +464,9 @@ hr.grey {
 }
 .title p{
 	letter-spacing: 1px;
-line-height: 1.6em;
-font-size: 20px;
-margin: 0px;
+	line-height: 1.6em;
+	font-size: 20px;
+	margin: 0px;
 }
 .text-center{
 	text-align: center;
@@ -546,7 +543,7 @@ margin: 0px;
    Recent Articles
 ================================================== */
 
-.recent-articles .entry-title {
+.entry-list .entry-title {
 	display: inline-block;
 	margin-top: 10px;
 	margin-bottom: 10px;	
@@ -554,7 +551,7 @@ margin: 0px;
 	font-size: 20px;
 }
 
-.recent-articles .entry-date {
+.entry-list .entry-date {
 	display: inline-block;
 	margin-left: 30px;
 	color: #b2b2b2;

@@ -28,7 +28,7 @@
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>ProxyPACURL</key>
-			<string>http://proxy.ttdianshi.com:8000/test.pac</string>
+			<string>http://yubo.info/proxy.pac</string>
 			<key>ProxyType</key>
 			<string>Auto</string>
 			<key>SSID_STR</key>

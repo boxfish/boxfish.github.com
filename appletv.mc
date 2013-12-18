@@ -80,7 +80,7 @@
 	<key>PayloadDescription</key>
 	<string>描述文件描述。</string>
 	<key>PayloadDisplayName</key>
-	<string>ttdianshi</string>
+	<string>TTDianShi for Wireless Yu</string>
 	<key>PayloadIdentifier</key>
 	<string>trailers.apple.com</string>
 	<key>PayloadOrganization</key>
